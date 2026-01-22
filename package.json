@@ -1,0 +1,46 @@
+{
+  "name": "chainguard",
+  "version": "1.0.0",
+  "description": "AI-Powered Smart Contract Security Auditor",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "contracts",
+    "ai-engine"
+  ],
+  "scripts": {
+    "install:all": "npm install && npm install --workspace=frontend && npm install --workspace=backend && npm install --workspace=contracts && npm install --workspace=ai-engine",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:contracts": "npm run node --workspace=contracts",
+    "build": "npm run build --workspace=frontend && npm run compile --workspace=contracts",
+    "build:frontend": "npm run build --workspace=frontend",
+    "build:backend": "echo 'Backend does not require build'",
+    "build:contracts": "npm run compile --workspace=contracts",
+    "test": "npm run test --workspace=backend && npm run test --workspace=contracts",
+    "test:backend": "npm run test --workspace=backend",
+    "test:contracts": "npm run test --workspace=contracts",
+    "deploy:contracts": "npm run deploy:sepolia --workspace=contracts",
+    "clean": "rm -rf node_modules frontend/node_modules backend/node_modules contracts/node_modules ai-engine/node_modules",
+    "setup": "npm run install:all && npm run build:contracts"
+  },
+  "keywords": [
+    "blockchain",
+    "security",
+    "audit",
+    "ai",
+    "smart-contracts",
+    "web3"
+  ],
+  "author": "ChainGuard Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  }
+}

@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  # IPFS Node
+  ipfs:
+    image: ipfs/kubo:latest
+    container_name: chainguard-ipfs
+    ports:
+      - "5001:5001"  # API
+      - "8080:8080"  # Gateway
+      - "4001:4001"  # Swarm
+    volumes:
+      - ipfs-data:/data/ipfs
+      - ./ipfs-config:/etc/ipfs
+    restart: unless-stopped
+    networks:
+      - chainguard-network
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: chainguard-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - IPFS_HOST=ipfs
+      - IPFS_PORT=5001
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - ipfs
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    restart: unless-stopped
+    networks:
+      - chainguard-network
+
+  # Frontend (for production builds)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: chainguard-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - chainguard-network
+
+volumes:
+  ipfs-data:
+
+networks:
+  chainguard-network:
+    driver: bridge

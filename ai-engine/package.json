@@ -1,0 +1,20 @@
+{
+  "name": "chainguard-ai-engine",
+  "version": "1.0.0",
+  "description": "AI Analysis Engine for Smart Contract Security",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "analyze": "node src/index.js"
+  },
+  "keywords": ["ai", "security", "smart-contracts", "analysis"],
+  "author": "ChainGuard Team",
+  "license": "MIT",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

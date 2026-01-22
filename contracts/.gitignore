@@ -1,0 +1,25 @@
+# Hardhat
+cache/
+artifacts/
+typechain/
+typechain-types/
+
+# Dependencies
+node_modules/
+
+# Environment
+.env
+.env.local
+
+# Coverage
+coverage/
+coverage.json
+
+# Hardhat
+deployments/*/solcInputs
+
+# Misc
+.DS_Store
+*.swp
+*.swo
+*~
