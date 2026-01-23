@@ -2,8 +2,6 @@
 
 > AI-Powered Smart Contract Security Auditor
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node Version](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen)](https://nodejs.org)
 
 ChainGuard is a comprehensive security auditing platform that combines advanced AI analysis, decentralized storage, and blockchain verification to provide trustworthy smart contract audits.
 
@@ -305,8 +303,7 @@ cd contracts && npx hardhat coverage
 ## 🎬 Demo
 
 ### Live Demo
-- **Frontend**: [https://chainguard-demo.vercel.app](https://chainguard-demo.vercel.app)
-- **Video**: [YouTube Demo](https://youtube.com/...)
+- **Video**: https://youtu.be/XAS_-s6Uq8U
 
 ### Demo Flow
 1. Upload vulnerable contract
@@ -360,9 +357,9 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file.
 
 Built with ❤️ for W3Node Hackathon 2026
 
-- **Developer**: [Your Name]
-- **GitHub**: [@yourusername](https://github.com/yourusername)
-- **Twitter**: [@yourhandle](https://twitter.com/yourhandle)
+- **Developer**: [Sanelisiwe Simatu]
+- **GitHub**: [](https://github.com/sanenelisiwe1975.
+- **Twitter**: [](https://twitter.com/nelliesmart)
 
 ---
 
@@ -388,6 +385,5 @@ Built with ❤️ for W3Node Hackathon 2026
 
 **⭐ Star this repo if you find it useful!**
 
-Made for W3Node Hackathon 2026 🚀
 
 </div>
