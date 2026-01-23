@@ -166,6 +166,18 @@ contract VulnerableBank {
   return (
     <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl border border-slate-700 overflow-hidden">
       <form onSubmit={handleSubmit} className="p-8 space-y-6">
+        {/* Demo Mode Banner */}
+        <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4 flex items-start space-x-3">
+          <div className="flex-shrink-0 mt-0.5">
+            <div className="flex items-center justify-center h-5 w-5 rounded-full bg-blue-500/20">
+              <span className="text-blue-300 text-xs font-bold">!</span>
+            </div>
+          </div>
+          <div className="text-sm text-blue-200">
+            <strong>Demo Mode:</strong> Using simulated AI analysis. To use real Claude AI, add your Anthropic API key to <code className="bg-slate-900/50 px-2 py-1 rounded text-xs">backend/.env</code>
+          </div>
+        </div>
+
         {/* Contract Details */}
         <div>
           <h3 className="text-lg font-semibold text-white mb-4">Contract Details</h3>
