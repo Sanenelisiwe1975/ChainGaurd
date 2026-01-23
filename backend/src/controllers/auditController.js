@@ -31,12 +31,22 @@ export const auditContract = async (req, res, next) => {
       analysisResult
     );
 
-    // Step 3: Upload to IPFS
-    logger.info('Step 3: Uploading report to IPFS');
-    const ipfsResult = await uploadToIPFS(report);
-
-    // Step 4: Pin the content
-    await pinContent(ipfsResult.cid);
+    // Step 3: Try to upload to IPFS (optional, don't fail if unavailable)
+    let ipfsResult = null;
+    try {
+      logger.info('Step 3: Uploading report to IPFS');
+      ipfsResult = await uploadToIPFS(report);
+      
+      // Step 4: Pin the content
+      try {
+        await pinContent(ipfsResult.cid);
+      } catch (pinError) {
+        logger.warn('Failed to pin content, continuing anyway:', pinError.message);
+      }
+    } catch (ipfsError) {
+      logger.warn('IPFS upload failed, continuing with local report:', ipfsError.message);
+      // Continue without IPFS - not a critical failure
+    }
 
     // Step 5: Generate markdown version
     const markdownReport = formatMarkdownReport(report);
@@ -51,11 +61,11 @@ export const auditContract = async (req, res, next) => {
         contractHash: report.contract.hash,
         securityScore: report.analysis.securityScore,
         overallRisk: report.analysis.overallRisk,
-        ipfs: {
+        ipfs: ipfsResult ? {
           cid: ipfsResult.cid,
           url: ipfsResult.url,
           size: ipfsResult.size
-        },
+        } : null,
         report: {
           json: report,
           markdown: markdownReport
