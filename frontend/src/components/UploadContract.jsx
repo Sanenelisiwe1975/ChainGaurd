@@ -164,55 +164,61 @@ contract VulnerableBank {
   }
 
   return (
-    <div className="card">
-      <form onSubmit={handleSubmit} className="space-y-6">
+    <div className="bg-gradient-to-br from-slate-800 to-slate-900 rounded-2xl border border-slate-700 overflow-hidden">
+      <form onSubmit={handleSubmit} className="p-8 space-y-6">
         {/* Contract Details */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Contract Name (Optional)
-            </label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              placeholder="MyContract"
-              className="input"
-            />
-          </div>
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Language
-            </label>
-            <select
-              name="language"
-              value={formData.language}
-              onChange={handleInputChange}
-              className="input"
-            >
-              {SUPPORTED_LANGUAGES.map((lang) => (
-                <option key={lang.value} value={lang.value}>
-                  {lang.label}
-                </option>
-              ))}
-            </select>
+        <div>
+          <h3 className="text-lg font-semibold text-white mb-4">Contract Details</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Contract Name <span className="text-gray-500">(Optional)</span>
+              </label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                placeholder="e.g., MyToken, LiquidityPool"
+                className="w-full px-4 py-3 bg-slate-700 border border-slate-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent placeholder-gray-500 transition-all"
+              />
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Language
+              </label>
+              <select
+                name="language"
+                value={formData.language}
+                onChange={handleInputChange}
+                className="w-full px-4 py-3 bg-slate-700 border border-slate-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+              >
+                {SUPPORTED_LANGUAGES.map((lang) => (
+                  <option key={lang.value} value={lang.value}>
+                    {lang.label}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
 
         {/* Code Input */}
         <div>
-          <div className="flex items-center justify-between mb-2">
-            <label className="block text-sm font-medium text-gray-700">
-              Contract Code *
-            </label>
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <label className="block text-sm font-semibold text-white">
+                Smart Contract Code <span className="text-danger-400">*</span>
+              </label>
+              <p className="text-xs text-gray-400 mt-1">Paste your complete contract code below</p>
+            </div>
             <button
               type="button"
               onClick={handlePasteExample}
-              className="text-sm text-primary-600 hover:text-primary-700"
+              className="text-xs font-medium text-primary-300 bg-primary-500/20 px-3 py-1.5 rounded-lg hover:bg-primary-500/30 border border-primary-500/50 transition-all"
             >
-              Load Example
+              📋 Load Example
             </button>
           </div>
           
@@ -220,23 +226,26 @@ contract VulnerableBank {
             name="code"
             value={formData.code}
             onChange={handleInputChange}
-            placeholder="Paste your smart contract code here..."
-            rows={12}
-            className="input font-mono text-sm"
+            placeholder="pragma solidity ^0.8.0;&#10;&#10;contract MyContract {&#10;  // Your code here...&#10;}"
+            rows={14}
+            className="w-full px-4 py-3 bg-slate-700 border border-slate-600 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent font-mono text-sm placeholder-gray-500 transition-all resize-none"
             required
           />
           
-          <div className="mt-2 text-sm text-gray-500">
-            {formData.code.length} characters
+          <div className="mt-3 flex items-center justify-between">
+            <p className="text-xs text-gray-400">
+              {formData.code.length > 0 && <span>{formData.code.length} characters</span>}
+            </p>
+            <p className="text-xs text-gray-500">Max size: 10MB</p>
           </div>
         </div>
 
         {/* File Upload */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Or Upload File
+          <label className="block text-sm font-semibold text-white mb-3">
+            Or Upload Contract File
           </label>
-          <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary-500 transition-colors">
+          <div className="border-2 border-dashed border-slate-600 rounded-xl p-8 text-center hover:border-primary-500 hover:bg-primary-500/5 transition-all duration-200 group cursor-pointer">
             <input
               type="file"
               accept=".sol,.vy,.rs"
@@ -244,24 +253,27 @@ contract VulnerableBank {
               className="hidden"
               id="file-upload"
             />
-            <label htmlFor="file-upload" className="cursor-pointer">
-              <Upload className="mx-auto h-12 w-12 text-gray-400 mb-2" />
-              <p className="text-sm text-gray-600">
+            <label htmlFor="file-upload" className="cursor-pointer block">
+              <Upload className="mx-auto h-12 w-12 text-gray-400 mb-3 group-hover:text-primary-400 group-hover:scale-110 transition-all" />
+              <p className="text-sm text-gray-300 font-medium">
                 Click to upload or drag and drop
               </p>
               <p className="text-xs text-gray-500 mt-1">
-                .sol, .vy, .rs files (Max 10MB)
+                Supported: .sol (Solidity), .vy (Vyper), .rs (Rust)
               </p>
             </label>
           </div>
         </div>
 
         {/* Info Banner */}
-        <div className="bg-primary-50 border border-primary-200 rounded-lg p-4 flex items-start space-x-3">
-          <AlertCircle className="h-5 w-5 text-primary-600 flex-shrink-0 mt-0.5" />
-          <div className="text-sm text-primary-800">
-            <strong>Note:</strong> Your contract code is analyzed securely and not stored permanently. 
-            Only the audit report is saved to IPFS.
+        <div className="bg-primary-500/10 border border-primary-500/30 rounded-lg p-4 flex items-start space-x-3">
+          <div className="flex-shrink-0 mt-0.5">
+            <div className="flex items-center justify-center h-5 w-5 rounded-full bg-primary-500/20">
+              <span className="text-primary-300 text-xs">ℹ</span>
+            </div>
+          </div>
+          <div className="text-sm text-primary-200">
+            <strong>Privacy Protected:</strong> Your contract code is analyzed securely using AI and not permanently stored. Only audit reports are saved to IPFS for your records.
           </div>
         </div>
 
@@ -269,17 +281,21 @@ contract VulnerableBank {
         <button
           type="submit"
           disabled={isLoading || !formData.code.trim()}
-          className="w-full btn btn-primary flex items-center justify-center space-x-2 text-lg py-3"
+          className={`w-full py-4 rounded-xl font-semibold text-lg transition-all duration-200 flex items-center justify-center space-x-2 ${
+            isLoading || !formData.code.trim()
+              ? 'bg-slate-700 text-gray-400 cursor-not-allowed opacity-50'
+              : 'bg-gradient-to-r from-primary-500 to-blue-500 text-white hover:shadow-lg hover:shadow-primary-500/50 hover:scale-105'
+          }`}
         >
           {isLoading ? (
             <>
               <Loader className="h-5 w-5 animate-spin" />
-              <span>Analyzing Contract...</span>
+              <span>Analyzing Your Contract...</span>
             </>
           ) : (
             <>
               <FileCode className="h-5 w-5" />
-              <span>Start Audit</span>
+              <span>Start Security Audit</span>
             </>
           )}
         </button>
